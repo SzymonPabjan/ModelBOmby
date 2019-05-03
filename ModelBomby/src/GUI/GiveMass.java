@@ -7,7 +7,9 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -16,6 +18,7 @@ public class GiveMass extends JPanel
 	private static final long serialVersionUID = 1L;
 	public GiveMass() 
 	{
+		JFrame frame=new JFrame();
 		JLabel title = new JLabel("Podaj masê:");
 		JTextField mass = new JTextField(10);
 		JLabel unit = new JLabel("pg");
@@ -59,7 +62,7 @@ public class GiveMass extends JPanel
 				}
 				catch (Exception e)
 				{
-					System.out.println("niezgodny typ danych");
+					JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
 					massCalculate=1;
 				}
 			}

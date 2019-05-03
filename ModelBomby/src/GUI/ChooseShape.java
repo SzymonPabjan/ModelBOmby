@@ -1,5 +1,5 @@
 //klasa definiujaca GUI potrzebne do opcji zwiazanych z ksztaltem probki.
-//TO DO: double jako dane, bledy wywalac przez osobne okienko a nie przez konsole
+//TO DO: double jako dane
 package GUI;
 
 import java.awt.GridLayout;
@@ -12,9 +12,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -25,6 +27,7 @@ public class ChooseShape extends JPanel
 	{
 		//inicjalizacja obiektow
 		JPanel ChooseShapePanel=new JPanel(new GridLayout(7,1));
+		JFrame frame=new JFrame();
 		JMenuBar shapes = new JMenuBar();
 		JMenu choose = new JMenu("Wybie¿ kszta³t próbki");
 		JMenuItem ball = new JMenuItem("Kula");
@@ -157,7 +160,7 @@ public class ChooseShape extends JPanel
 				{
 					if(units.radiusIsEditable==0 && units.sideIsEditable==0 && units.heightIsEditable==0) {}
 					else
-					System.out.println("niezgodny typ danych");
+					JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
 					radiusCalculate=1;
 				}
 			}
@@ -183,7 +186,7 @@ public class ChooseShape extends JPanel
 				catch (Exception e)
 				{
 					if(units.radiusIsEditable==0 && units.sideIsEditable==0 && units.heightIsEditable==0) {}
-					System.out.println("niezgodny typ danych");
+					JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
 					sideCalculate=1;
 				}
 			}
@@ -209,7 +212,7 @@ public class ChooseShape extends JPanel
 				catch (Exception e)
 				{
 					if(units.radiusIsEditable==0 && units.sideIsEditable==0 && units.heightIsEditable==0) {}
-					System.out.println("niezgodny typ danych");
+					JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
 					heightCalculate=1;
 				}
 			}

@@ -1,5 +1,4 @@
 //klasa do inicjalizacji i wyswietlania wszystkiego
-//TO DO: watki dla obliczen i moze dla grafiki
 package GUI;
 
 import java.awt.BorderLayout;
@@ -54,6 +53,7 @@ public class MainFrame extends JFrame
 
 	public static void main(String[] args)
 	{
+		//watek GUI
 		SwingUtilities.invokeLater(
 				new Runnable() 
 				{
@@ -64,6 +64,24 @@ public class MainFrame extends JFrame
 						MF.setSize(1080, 720); 
 						MF.setVisible(true);
 					}
-				}
-				);}
+				});
+		//watek symulacji
+		SwingUtilities.invokeLater(
+				new Runnable() 
+				{
+					public void run() 
+					{
+						
+					}
+				});
+		//watek animacji
+		SwingUtilities.invokeLater(
+				new Runnable() 
+				{
+					public void run() 
+					{
+						
+					}
+				});
+	}
 }
