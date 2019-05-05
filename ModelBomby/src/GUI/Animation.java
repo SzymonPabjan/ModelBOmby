@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 
 import edu.princeton.cs.introcs.StdDraw;
 
+
 public class Animation extends JPanel 
 {
 	private static final long serialVersionUID = 1L;

@@ -1,7 +1,8 @@
 //klasa do inicjalizacji i wyswietlania wszystkiego.
 //TO DO:
 package GUI;
-
+import math.Atom;
+import math.Neutron;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GraphicsConfiguration;
@@ -10,7 +11,7 @@ import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
+import math.Methods;
 public class MainFrame extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
