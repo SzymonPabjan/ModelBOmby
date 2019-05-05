@@ -1,4 +1,5 @@
 //klasa tworzaca GUI dla szybkosci animacji
+//TO DO:
 package GUI;
 
 import java.awt.BorderLayout;

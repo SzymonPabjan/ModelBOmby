@@ -1,4 +1,5 @@
 //Klasa do sprawdzania czy string jest dodatnim doublem; narazie dziala dla dodatnich intow.
+//TO DO: sprawic aby dzialalo dla doubli.
 package GUI;
 
 public class IsDouble 

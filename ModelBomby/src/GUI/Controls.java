@@ -1,4 +1,5 @@
 //klasa do guziczkow akcyjnych
+//TO DO: sprawic aby guziczki dzialaly
 package GUI;
 
 import java.awt.GridLayout;

@@ -1,5 +1,5 @@
 //klasa definiujaca GUI potrzebne do opcji zwiazanych z ksztaltem probki.
-//TO DO: double jako dane
+//TO DO: double jako dane.
 package GUI;
 
 import java.awt.GridLayout;

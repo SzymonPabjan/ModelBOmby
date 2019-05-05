@@ -1,4 +1,5 @@
 //klasa tworzaca GUI potrzebne do okreslenia masy probki
+//TO DO:
 package GUI;
 
 import java.awt.LayoutManager;

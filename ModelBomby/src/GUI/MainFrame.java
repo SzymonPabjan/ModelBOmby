@@ -1,4 +1,5 @@
-//klasa do inicjalizacji i wyswietlania wszystkiego
+//klasa do inicjalizacji i wyswietlania wszystkiego.
+//TO DO:
 package GUI;
 
 import java.awt.BorderLayout;

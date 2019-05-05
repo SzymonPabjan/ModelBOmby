@@ -1,4 +1,5 @@
 //Klasa pomagajaca przy czyszczeniu jTextField-ow. Zmienia wartosci odpowiednich parametrow przy wyborze ksztaltu.
+//TO DO:
 package GUI;
 
 public class EditUnits 
