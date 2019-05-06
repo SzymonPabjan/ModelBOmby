@@ -3,11 +3,16 @@
 package GUI;
 import math.Atom;
 import math.Neutron;
+
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -55,6 +60,7 @@ public class MainFrame extends JFrame
 
 	public static void main(String[] args)
 	{
+		
 		//watek GUI
 		SwingUtilities.invokeLater(
 				new Runnable() 
@@ -65,16 +71,32 @@ public class MainFrame extends JFrame
 						MF.setTitle("Model bomby atomowej-wersja pre-alpha");
 						MF.setSize(1080, 720); 
 						MF.setVisible(true);
+						
 					}
 				});
 		//watek symulacji
 		SwingUtilities.invokeLater(
-				new Runnable() 
-				{
+				new Runnable() {
+//					int pauza = 10;
+//					boolean p =true;
+					int a = 11;
 					public void run() 
+					
 					{
+						int suma =0;
+						Methods met = new Methods(a,a,a);
 						
+						met.AtomArrayAdd();
+						
+					while(met.atoms.size()>=(0.1*(a*a*a)) ) {
+							met.Choice();
+							met.ND();
+							met.OutN();
+							suma +=met.AND();
+							System.out.println(suma);
+						}
 					}
+					
 				});
 		//watek animacji
 		SwingUtilities.invokeLater(
