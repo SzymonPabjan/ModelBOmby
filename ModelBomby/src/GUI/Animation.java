@@ -39,7 +39,7 @@ public class Animation extends JPanel
 			int randomInt=random.nextInt();
 			ActivePoints.put(pointsCoordinate, randomInt);
 		}
-		System.out.println(ActivePoints);
+		//System.out.println(ActivePoints);
 		//rysowanie
 	}
 	public void drawPoint(int PointRadius)
