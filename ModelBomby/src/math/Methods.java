@@ -6,7 +6,8 @@ import java.util.Random;
 import math.Atom;
 import math.Neutron;
 
-public class Methods {
+
+public class Methods /*implements Runnable*/ {
 
 	int x =0;
 	int y= 0;
@@ -18,9 +19,9 @@ public class Methods {
 		z = Z;
 	}
 	
-	ArrayList<Atom> atoms = new ArrayList<Atom>();
+	public ArrayList<Atom> atoms = new ArrayList<Atom>();
 	Atom atomfill = new Atom(0,0,0, false);
-	ArrayList<Neutron> neutrons = new ArrayList<Neutron>();
+	public ArrayList<Neutron> neutrons = new ArrayList<Neutron>();
 	
 	//tworzenie "atomów"
 	public void AtomArrayAdd() {
@@ -39,20 +40,23 @@ public class Methods {
 	//losowanie wspó³rzêdnych atmów, które ulegn¹ rozpadowi
 	public int[] RDAs() { //RadnomlyDecayedAtoms
 		Random r = new Random();
+		
 		int c = 0;
-		//int suma = 0;
 		int[] coo = new int[15];
 		for(int i =0; i<15; i++) {
 				c = r.nextInt((x-1)+1)+1;
 				coo[i]=c;	
+				//System.out.println(c);
 		}
 		return coo;	
 	}
 	//koniec losowania 
 	
-	void NC(int a) {// Neutron Creation
+	
+		void NC(int a) {// Neutron Creation
 		int[] co = RDAs();
 		for(int i =0; i<atoms.size(); i++) {
+			//System.out.println(i);
 			if(atoms.get(i).x == co[0 +a ] & atoms.get(i).y == co[1 +a] & atoms.get(i).z == co[2+a] &
 					atoms.get(i).decay == false) {
 				atoms.get(i).decay = true;
@@ -60,6 +64,7 @@ public class Methods {
 				neutrons.add(new Neutron(co[0], co[1],co[2], false));
 				neutrons.add(new Neutron(co[0], co[1],co[2], false));
 				atoms.remove(i);
+				
 			}
 		}
 	}
@@ -69,6 +74,7 @@ public class Methods {
 		 int r = rand.nextInt((5-1)+1)+1;
 		 if(r==1) {
 			 NC(0);
+			
 		 }
 		 if(r==2) {
 			 NC(0);
@@ -120,7 +126,10 @@ public class Methods {
 				 neutrons.get(i).z+=(-1);
 			 }
 			 }
+		
 		}
+	
+	
 	
 	public void OutN() {//Outside Neutrons
 		for(int j =0; j<neutrons.size(); j++) {
@@ -128,11 +137,12 @@ public class Methods {
 					neutrons.get(j).z < 0 | neutrons.get(j).z>z) {
 				neutrons.get(j).outside = true;	
 				neutrons.remove(j);
+				
 			}
 		}
 	}
 	
-	int AND() {//Atoms Neutron Decay
+	public int AND() {//Atoms Neutron Decay
 		int suma = 0;
 		for(int i =0; i<neutrons.size(); i++) {
 			 Random rand = new Random();
@@ -144,7 +154,6 @@ public class Methods {
 							atoms.get(j).z == neutrons.get(i).z) {
 						atoms.get(j).decay = true;
 						atoms.remove(j);
-						//System.out.println(atoms.get(j).z);
 						suma++;
 					}
 				}
@@ -152,6 +161,23 @@ public class Methods {
 		}
 		return suma;
 	}
+	
+	
+//	int pauza = 10;
+//	boolean czynny = true;
+//	
+//	public void run() {
+//		while (czynny) {
+//			
+//				}
+//			try {
+//				Thread.sleep(pauza);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+
+	
 	
 
 }
