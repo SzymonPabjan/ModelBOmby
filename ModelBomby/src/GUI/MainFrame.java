@@ -83,6 +83,7 @@ public class MainFrame extends JFrame
 					public void run() 
 					
 					{
+//<<<<<<< TestyGUIzMatmą
 						int suma =0;
 						Methods met = new Methods(a,a,a);
 						
@@ -95,6 +96,10 @@ public class MainFrame extends JFrame
 							suma +=met.AND();
 							System.out.println(suma);
 						}
+//=======
+						Units units=new Units();
+						int radiusValue=units.radiusValue;
+//>>>>>>> master
 					}
 					
 				});

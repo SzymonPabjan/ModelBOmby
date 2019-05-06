@@ -5,4 +5,5 @@ package GUI;
 public class Units 
 {
 	int radiusIsEditable=0, sideIsEditable=0, heightIsEditable=0;
+	int radiusValue=1;
 }
