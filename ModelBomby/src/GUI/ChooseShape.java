@@ -154,6 +154,7 @@ public class ChooseShape extends JPanel
 					else
 					{
 						radiusCalculate= Integer.parseInt(radiusValue);
+						units.radiusValue=radiusCalculate;
 					}
 				}
 				catch (Exception e)
@@ -238,22 +239,7 @@ public class ChooseShape extends JPanel
 		ChooseShapePanel.add(side);
 		ChooseShapePanel.add(height);
 	}
-	public boolean plusDouble(Object object, boolean isDoubleFunction)//komentarz tak jak isDouble
-	{
-		if(isDoubleFunction==false)
-		{
-			boolean result;
-			String string=object.toString();
-			double a=Double.parseDouble(string);
-			if(a>0)
-				result=false;
-			else
-				result=true;
-			return result;
-		}
-		else
-		return true;
-	}
+	//funkcje
 	public int Editable(int object)
 	{
 		int a=0;
@@ -265,7 +251,6 @@ public class ChooseShape extends JPanel
 		else
 		return a;
 	}
-	//reszta
 	//reszta
 	public ChooseShape(LayoutManager layout)
 	{

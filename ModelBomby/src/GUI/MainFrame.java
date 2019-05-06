@@ -72,7 +72,8 @@ public class MainFrame extends JFrame
 				{
 					public void run() 
 					{
-						
+						Units units=new Units();
+						int radiusValue=units.radiusValue;
 					}
 				});
 		//watek animacji
