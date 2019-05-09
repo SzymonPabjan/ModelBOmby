@@ -77,31 +77,31 @@ public class MainFrame extends JFrame
 		//watek symulacji
 		SwingUtilities.invokeLater(
 				new Runnable() {
-//					int pauza = 10;
-//					boolean p =true;
-					int a = 11;
-					public void run() 
-					
+					Units units=new Units();//stworzeni klasy pobierj¹cej dane wejsciowe
+					int a = 20;//units.radiusValue;
+					int i = 0; // zlicza numer iteracji pêtli while
+					public void run() 				
 					{
-//<<<<<<< TestyGUIzMatmÄ…
+
 						int suma =0;
 						Methods met = new Methods(a,a,a);
 						
 						met.AtomArrayAdd();
 						
-					while(met.atoms.size()>=(0.1*(a*a*a)) ) {
+						while(met.atoms.size()>=(0.1*(a*a*a)) ) {//pêtla w kótrej odbywa siê symualcja
 							met.Choice();
 							met.ND();
 							met.OutN();
 							suma +=met.AND();
-							System.out.println(suma);
+							i++;
+							System.out.print(i); //podaje nuemr iteracji
+							System.out.print("   ");
+							System.out.print(suma); //podaje liczbê jader, które rozpad³y siê pod wp³ywem uderzenia neutronu
+							System.out.print("   ");
+							System.out.print(met.atoms.size());//podaje liczbê pozosta³ych j¹der 
+							System.out.println();
 						}
-//=======
-						Units units=new Units();
-						int radiusValue=units.radiusValue;
-//>>>>>>> master
 					}
-					
 				});
 		//watek animacji
 		SwingUtilities.invokeLater(

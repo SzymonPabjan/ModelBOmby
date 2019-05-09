@@ -7,24 +7,24 @@ import math.Atom;
 import math.Neutron;
 
 
-public class Methods /*implements Runnable*/ {
+public class Methods {// klasa zawieraj¹ca wszystkie metody u¿ywane w "czêsæi matematycznej" programu oraz listy klas 
+					  //Neutron i Atom
 
 	int x =0;
 	int y= 0;
 	int z= 0;
 	
-	public Methods(int X, int Y, int Z) {
+	public Methods(int X, int Y, int Z) {//konstrutkor
 		x = X;
 		y = Y;
 		z = Z;
 	}
 	
-	public ArrayList<Atom> atoms = new ArrayList<Atom>();
-	Atom atomfill = new Atom(0,0,0, false);
-	public ArrayList<Neutron> neutrons = new ArrayList<Neutron>();
+	public ArrayList<Atom> atoms = new ArrayList<Atom>(); //lista obiektów klasy Atom
+	public ArrayList<Neutron> neutrons = new ArrayList<Neutron>(); //lista obiektów klasy Neutron
 	
 	//tworzenie "atomów"
-	public void AtomArrayAdd() {
+	public void AtomArrayAdd() {// funkcja zape³niajaca listê obiekatmi klasy Atom
 		for(int i =0; i<x; i++) {
 			for(int j =0; j<y; j++) {
 				for(int k =0; k<z; k++) {
@@ -53,7 +53,8 @@ public class Methods /*implements Runnable*/ {
 	//koniec losowania 
 	
 	
-		void NC(int a) {// Neutron Creation
+		void NC(int a) {// Neutron Creation funkcja tworz¹ca Neutrony na podstawie koordynatów samoistnie 
+			            //rozpadajaæych siê jader atomów
 		int[] co = RDAs();
 		for(int i =0; i<atoms.size(); i++) {
 			//System.out.println(i);
@@ -69,12 +70,11 @@ public class Methods /*implements Runnable*/ {
 		}
 	}
 	
-	public void Choice() {
+	public void Choice() {// funkcja losuj¹ca liczbê j¹der atomowych, któe samoistnie siê rozpadn¹
 		Random rand = new Random();
 		 int r = rand.nextInt((5-1)+1)+1;
 		 if(r==1) {
 			 NC(0);
-			
 		 }
 		 if(r==2) {
 			 NC(0);
@@ -131,27 +131,29 @@ public class Methods /*implements Runnable*/ {
 	
 	
 	
-	public void OutN() {//Outside Neutrons
-		for(int j =0; j<neutrons.size(); j++) {
-			if(neutrons.get(j).x < 0 | neutrons.get(j).x>x |neutrons.get(j).y < 0 | neutrons.get(j).y>y | 
-					neutrons.get(j).z < 0 | neutrons.get(j).z>z) {
-				neutrons.get(j).outside = true;	
-				neutrons.remove(j);
+	public void OutN() {//Outside Neutrons funkcja wyszukujaca neutrony, któe znalz³y siê poza obrêbem 
+						//próbki i usuwaj¹ca je z pamieæi
+		for(int i =0; i<neutrons.size(); i++) {
+			if(neutrons.get(i).x < 0 | neutrons.get(i).x>x |neutrons.get(i).y < 0 | neutrons.get(i).y>y | 
+					neutrons.get(i).z < 0 | neutrons.get(i).z>z) {
+				neutrons.get(i).outside = true;	
+				neutrons.remove(i);
 				
 			}
 		}
 	}
 	
-	public int AND() {//Atoms Neutron Decay
+	public int AND() {//Atoms Neutron Decay funkcja "rozpadaj¹ca" ja¹dra atomów trafione przez 
+					  //neutrony, dodatkowo zlicza liczbê rozpadów
 		int suma = 0;
 		for(int i =0; i<neutrons.size(); i++) {
 			 Random rand = new Random();
-			 int r = rand.nextInt((100-1)+1)+1;
-			
+			 int r = rand.nextInt((100-1)+1)+1; // losowy int którego wartoœæ decyduje o tym czy jadro
+			 									//ulegnie rozpadowi po zderzeniu z j¹drem 
 			if(neutrons.get(i).outside == false && r<=25) {
-				for(int j =0; j<atoms.size(); j++) {
-					if(atoms.get(j).decay == false && atoms.get(j).x == neutrons.get(i).x && atoms.get(j).y == neutrons.get(i).y && 
-							atoms.get(j).z == neutrons.get(i).z) {
+				for(int j =0; j<atoms.size(); j++) {// ta czêœæ metody znajduje odpowiednie j¹dra i usuwa je z pamiêci
+					if(atoms.get(j).decay == false && atoms.get(j).x == neutrons.get(i).x 
+							&& atoms.get(j).y == neutrons.get(i).y && atoms.get(j).z == neutrons.get(i).z) {
 						atoms.get(j).decay = true;
 						atoms.remove(j);
 						suma++;
@@ -161,23 +163,6 @@ public class Methods /*implements Runnable*/ {
 		}
 		return suma;
 	}
-	
-	
-//	int pauza = 10;
-//	boolean czynny = true;
-//	
-//	public void run() {
-//		while (czynny) {
-//			
-//				}
-//			try {
-//				Thread.sleep(pauza);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
-
-	
 	
 
 }
