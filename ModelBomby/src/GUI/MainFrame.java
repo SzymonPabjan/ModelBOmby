@@ -1,25 +1,33 @@
+
+//klasa do inicjalizacji i wyswietlania wszystkiego.
+//TO DO:
+
 //klasa do inicjalizacji i wyswietlania wszystkiego.
 //TO DO:
 package GUI;
-import math.Atom;
-import math.Neutron;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
 import math.Methods;
-public class MainFrame extends JFrame 
-{
+import math.SymulationThread;
+
+public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	public MainFrame() throws HeadlessException 
-	{
+
+	public MainFrame() throws HeadlessException {
 		this.setSize(1080, 720);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		this.setLayout(new BorderLayout());
 		JPanel screen = new JPanel();
 		JPanel menu = new JPanel();
@@ -27,64 +35,60 @@ public class MainFrame extends JFrame
 		GiveMass masa = new GiveMass();
 		GiveSize size = new GiveSize();
 		ChooseSpeed speed = new ChooseSpeed();
-		Controls contr = new Controls();
-		
+		Controls controls = new Controls();
+
 		add(BorderLayout.CENTER, screen);
 		screen.setBackground(Color.WHITE);
 		add(BorderLayout.EAST, menu);
-		menu.setLayout(new GridLayout(5,1));
+		menu.setLayout(new GridLayout(5, 1));
 		menu.add(shape);
 		menu.add(masa);
 		menu.add(size);
 		menu.add(speed);
-		menu.add(contr);
+		menu.add(controls);
 	}
 
-	public MainFrame(GraphicsConfiguration arg0) 
-	{
+	public MainFrame(GraphicsConfiguration arg0) {
 		super(arg0);
 	}
-	public MainFrame(String arg0) throws HeadlessException 
-	{
+
+	public MainFrame(String arg0) throws HeadlessException {
 		super(arg0);
 	}
-	public MainFrame(String arg0, GraphicsConfiguration arg1) 
-	{
+
+	public MainFrame(String arg0, GraphicsConfiguration arg1) {
 		super(arg0, arg1);
 	}
 
-	public static void main(String[] args)
-	{
-		//watek GUI
-		SwingUtilities.invokeLater(
-				new Runnable() 
-				{
-					public void run() 
-					{
-						MainFrame MF = new MainFrame();
-						MF.setTitle("Model bomby atomowej-wersja pre-alpha");
-						MF.setSize(1080, 720); 
-						MF.setVisible(true);
-					}
-				});
-		//watek symulacji
-		SwingUtilities.invokeLater(
-				new Runnable() 
-				{
-					public void run() 
-					{
-						Units units=new Units();
-						int radiusValue=units.radiusValue;
-					}
-				});
-		//watek animacji
-		SwingUtilities.invokeLater(
-				new Runnable() 
-				{
-					public void run() 
-					{
-						
-					}
-				});
+	public static void main(String[] args) {
+		// watek GUI
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				MainFrame MF = new MainFrame();
+				MF.setTitle("Model bomby atomowej-wersja pre-alpha");
+				MF.setSize(1080, 720);
+				MF.setVisible(true);
+			}
+		});
+		// watek symulacji
+		// ControlsStatusActivaction activactionStatus=new ControlsStatusActivaction();
+		// Controls controls = new Controls();
+		// while(activactionStatus.startActivaction==true)
+		// zmienic
+		Units units = new Units();// stworzeni klasy pobierj¹cej dane wejsciowe
+		int a = units.radiusValue;
+//		SymulationThread ST = new SymulationThread(30, 30, 30);
+//		ExecutorService exec = Executors.newFixedThreadPool(2);
+//		exec.execute(ST);
+
+	
+//		//activactionStatus.startActivaction=false;
+
+		// watek animacji
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+
+			}
+		});
 	}
 }

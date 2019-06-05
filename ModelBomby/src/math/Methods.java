@@ -1,3 +1,4 @@
+
 package math;
 
 import java.util.ArrayList;
@@ -6,28 +7,30 @@ import java.util.Random;
 import math.Atom;
 import math.Neutron;
 
-public class Methods {
 
-	int x =0;
-	int y= 0;
-	int z= 0;
+public class Methods {// klasa zawieraj¹ca wszystkie metody u¿ywane w "czêsæi matematycznej" programu oraz listy klas Neutron i Atom
+
+	int xPosition = 0;
+	int yPosition = 0;
+	int zPosition = 0;
 	
-	public Methods(int X, int Y, int Z) {
-		x = X;
-		y = Y;
-		z = Z;
+	public Methods(int X, int Y, int Z) {//konstrutkor
+		xPosition = X;
+		yPosition = Y;
+		zPosition = Z;
 	}
 	
-	ArrayList<Atom> atoms = new ArrayList<Atom>();
-	Atom atomfill = new Atom(0,0,0, false);
-	ArrayList<Neutron> neutrons = new ArrayList<Neutron>();
+	public ArrayList<Atom> atoms = new ArrayList<Atom>(); //lista obiektów klasy Atom
+	public ArrayList<Neutron> neutrons = new ArrayList<Neutron>(); //lista obiektów klasy Neutron
+	public ArrayList<Atom> decayedatoms = new ArrayList<Atom>();//lista rozpadnietych atomów przkazywana do w¹tku animacji
+	
 	
 	//tworzenie "atomów"
-	public void AtomArrayAdd() {
-		for(int i =0; i<x; i++) {
-			for(int j =0; j<y; j++) {
-				for(int k =0; k<z; k++) {
-					Atom atom = new Atom(i,j,k,false);	
+	public void AtomListAdd() {// funkcja zape³niajaca listê obiekatmi klasy Atom
+		for(int ii =0; ii<xPosition; ii++) {
+			for(int jj =0; jj<yPosition; jj++) {
+				for(int kk =0; kk<zPosition; kk++) {
+					Atom atom = new Atom(ii,jj,kk,false);	
 					atoms.add(atom);
 				}
 			}
@@ -37,114 +40,113 @@ public class Methods {
 	//koniec tworzenia atomów
 	
 	//losowanie wspó³rzêdnych atmów, które ulegn¹ rozpadowi
-	public int[] RDAs() { //RadnomlyDecayedAtoms
-		Random r = new Random();
+	public int[] RadnomlyDecayedAtoms() { //RadnomlyDecayedAtoms
+		Random random = new Random();
+		
 		int c = 0;
-		//int suma = 0;
 		int[] coo = new int[15];
-		for(int i =0; i<15; i++) {
-				c = r.nextInt((x-1)+1)+1;
-				coo[i]=c;	
+		for(int ii =0; ii<15; ii++) {
+				c = random.nextInt((xPosition-1)+1)+1;
+				coo[ii]=c;	
+				
 		}
 		return coo;	
 	}
 	//koniec losowania 
 	
-	void NC(int a) {// Neutron Creation
-		int[] co = RDAs();
-		for(int i =0; i<atoms.size(); i++) {
-			if(atoms.get(i).x == co[0 +a ] & atoms.get(i).y == co[1 +a] & atoms.get(i).z == co[2+a] &
-					atoms.get(i).decay == false) {
-				atoms.get(i).decay = true;
+	
+		void NeutronCreation(int a) {// Neutron Creation funkcja tworz¹ca Neutrony na podstawie koordynatów samoistnie rozpadajaæych siê jader atomów
+		int[] co = RadnomlyDecayedAtoms();
+		for(int ii =0; ii<atoms.size(); ii++) {
+			//System.out.println(i);
+			if(atoms.get(ii).xPosition == co[0 +a ] & atoms.get(ii).yPosition == co[1 +a] & atoms.get(ii).zPosition == co[2+a] &
+					atoms.get(ii).decay == false) {
+				atoms.get(ii).decay = true;
+				decayedatoms.add(atoms.get(ii));
+				atoms.remove(ii);
 				neutrons.add(new Neutron(co[0], co[1],co[2], false));
 				neutrons.add(new Neutron(co[0], co[1],co[2], false));
 				neutrons.add(new Neutron(co[0], co[1],co[2], false));
-				atoms.remove(i);
+				
 			}
 		}
 	}
 	
-	public void Choice() {
+	public void Choice() {// funkcja losuj¹ca liczbê j¹der atomowych, któe samoistnie siê rozpadn¹
 		Random rand = new Random();
-		 int r = rand.nextInt((5-1)+1)+1;
-		 if(r==1) {
-			 NC(0);
+		 int random = rand.nextInt((5-1)+1)+1;
+		 if(random==1) {
+			 NeutronCreation(0);
 		 }
-		 if(r==2) {
-			 NC(0);
-			 NC(3);
+		 if(random==2) {
+			 NeutronCreation(0);
+			 NeutronCreation(3);
 		 }
-		 if(r==3) {
-			 NC(0);
-			 NC(3);
-			 NC(6);
+		 if(random==3) {
+			 NeutronCreation(0);
+			 NeutronCreation(3);
+			 NeutronCreation(6);
 		 }
-		 if(r==4) {
-			 NC(0);
-			 NC(3);
-			 NC(6);
-			 NC(9);
+		 if(random==4) {
+			 NeutronCreation(0);
+			 NeutronCreation(3);
+			 NeutronCreation(6);
+			 NeutronCreation(9);
 		 }
-		 if(r==5) {
-			 NC(0);
-			 NC(3);
-			 NC(6);
-			 NC(9);
-			 NC(12);
+		 if(random==5) {
+			 NeutronCreation(0);
+			 NeutronCreation(3);
+			 NeutronCreation(6);
+			 NeutronCreation(9);
+			 NeutronCreation(12);
 		 }
 	}
-	
 	
 	//funkcja losuj¹ca kierunek neutronów z listy;
-	public void ND() { // ND - neutrons direction
-		int i =0;
-		for(i =0; i<neutrons.size(); i++) {
+	public void NeutronsDirection() { // ND - neutrons direction
+		int ii =0;
+		for(ii=0; ii<neutrons.size(); ii++) {
 			Random rand = new Random();
-			 int r = rand.nextInt((6-1)+1)+1;
-			 if(r == 1 &&  neutrons.get(i).outside == false ) {
-				 neutrons.get(i).x+=1;
+			 int random = rand.nextInt((6-1)+1)+1;
+			 if(random == 1 &&  neutrons.get(ii).outside == false ) {
+				 neutrons.get(ii).xPosition+=1;
 			 }
-			 if(r == 2 &&  neutrons.get(i).outside == false ) {
-				 neutrons.get(i).x+=(-1);
+			 if(random == 2 &&  neutrons.get(ii).outside == false ) {
+				 neutrons.get(ii).xPosition+=(-1);
 			 }
-			 if(r == 3 &&  neutrons.get(i).outside == false ) {
-				 neutrons.get(i).y+=1;
+			 if(random == 3 &&  neutrons.get(ii).outside == false ) {
+				 neutrons.get(ii).yPosition+=1;
 			 }
-			 if(r == 4 &&  neutrons.get(i).outside == false ) {
-				 neutrons.get(i).y+=(-1);
+			 if(random == 4 &&  neutrons.get(ii).outside == false ) {
+				 neutrons.get(ii).yPosition+=(-1);
 			 }
-			 if(r == 5 &&  neutrons.get(i).outside == false ) {
-				 neutrons.get(i).z+=1;
+			 if(random == 5 &&  neutrons.get(ii).outside == false ) {
+				 neutrons.get(ii).zPosition+=1;
 			 }
-			 if(r == 6 &&  neutrons.get(i).outside == false ) {
-				 neutrons.get(i).z+=(-1);
+			 if(random == 6 &&  neutrons.get(ii).outside == false ) {
+				 neutrons.get(ii).zPosition+=(-1);
 			 }
+			 if(neutrons.get(ii).xPosition < 0 | neutrons.get(ii).xPosition>xPosition |neutrons.get(ii).yPosition < 0 | neutrons.get(ii).yPosition>yPosition | 
+						neutrons.get(ii).zPosition < 0 | neutrons.get(ii).zPosition>zPosition) {
+					neutrons.get(ii).outside = true;	
+				}
+			 
 			 }
+		
 		}
 	
-	public void OutN() {//Outside Neutrons
-		for(int j =0; j<neutrons.size(); j++) {
-			if(neutrons.get(j).x < 0 | neutrons.get(j).x>x |neutrons.get(j).y < 0 | neutrons.get(j).y>y | 
-					neutrons.get(j).z < 0 | neutrons.get(j).z>z) {
-				neutrons.get(j).outside = true;	
-				neutrons.remove(j);
-			}
-		}
-	}
-	
-	int AND() {//Atoms Neutron Decay
+	public int AtomsDecayedByNeutrons() {//Atoms Neutron Decay funkcja "rozpadaj¹ca" ja¹dra atomów trafione przez neutrony, dodatkowo zlicza liczbê rozpadów
 		int suma = 0;
-		for(int i =0; i<neutrons.size(); i++) {
+		for(int ii =0; ii<neutrons.size(); ii++) {
 			 Random rand = new Random();
-			 int r = rand.nextInt((100-1)+1)+1;
-			
-			if(neutrons.get(i).outside == false && r<=25) {
-				for(int j =0; j<atoms.size(); j++) {
-					if(atoms.get(j).decay == false && atoms.get(j).x == neutrons.get(i).x && atoms.get(j).y == neutrons.get(i).y && 
-							atoms.get(j).z == neutrons.get(i).z) {
-						atoms.get(j).decay = true;
-						atoms.remove(j);
-						//System.out.println(atoms.get(j).z);
+			 int random = rand.nextInt((100-1)+1)+1; // losowy int którego wartoœæ decyduje o tym czy jadro uelgnie rozpadowi po zderzeniu z j¹drem 
+			if(neutrons.get(ii).outside == false && random<=25) {
+				for(int jj =0; jj<atoms.size(); jj++) {// ta czêœæ metody znajduje odpowiednie j¹dra i usuwa je z pamiêci
+					if(atoms.get(jj).decay == false && atoms.get(jj).xPosition == neutrons.get(ii).xPosition && atoms.get(jj).yPosition == neutrons.get(ii).yPosition && 
+							atoms.get(jj).zPosition == neutrons.get(ii).zPosition) {
+						atoms.get(jj).decay = true;
+						decayedatoms.add(atoms.get(jj));
+						atoms.remove(jj);
 						suma++;
 					}
 				}
@@ -153,5 +155,4 @@ public class Methods {
 		return suma;
 	}
 	
-
 }

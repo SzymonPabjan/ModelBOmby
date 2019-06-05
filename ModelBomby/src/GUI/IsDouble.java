@@ -1,5 +1,5 @@
 //Klasa do sprawdzania czy string jest dodatnim doublem; narazie dziala dla dodatnich intow.
-//TO DO: sprawic aby dzialalo dla doubli.
+//TO DO: sprawic aby dzialalo dla doubli (moze bedzie to potrzebne; przemyslec).
 package GUI;
 
 public class IsDouble 
@@ -25,7 +25,7 @@ public class IsDouble
 		}
 		return false;
 	}
-	public boolean plusDouble(Object object, boolean isDoubleFunction)//komentarz tak jak isDouble
+	public boolean plusDouble(Object object, boolean isDoubleFunction)
 	{
 		if(isDoubleFunction==false)
 		{
@@ -41,22 +41,4 @@ public class IsDouble
 		else
 		return true;
 	}
-	/*
-	public boolean isDouble2(String object)
-	{
-		//String string=object.toString();
-		if(object==null)
-		return true;
-		try
-		{
-			Double.parseDouble(object);
-			return false;
-		}catch(NumberFormatException e)
-		{
-			return true;
-		}
-		
-		//Scanner scanner=new Scanner(object);
-		//return scanner;
-	}*/
 }

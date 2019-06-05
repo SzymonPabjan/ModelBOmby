@@ -4,7 +4,7 @@ package GUI;
 
 public class EditUnits 
 {
-	public void EditableUnits(Units object, int condition)//przez referencje
+	public void EditableUnits(Units object, int condition)
 	{
 		if(condition==1)
 		{

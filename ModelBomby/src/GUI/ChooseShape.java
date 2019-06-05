@@ -48,9 +48,9 @@ public class ChooseShape extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				radius.setText("promien+Enter");
-				side.setText("bok+Enter");
-				height.setText("wysokosc+Enter");
+				radius.setText("promien");
+				side.setText("bok");
+				height.setText("wysokosc");
 				radius.setEditable(true);
 				side.setEditable(false);
 				height.setEditable(false);
@@ -62,9 +62,9 @@ public class ChooseShape extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				radius.setText("promien+Enter");
-				side.setText("bok+Enter");
-				height.setText("wysokosc+Enter");
+				radius.setText("promien");
+				side.setText("bok");
+				height.setText("wysokosc");
 				radius.setEditable(false);
 				side.setEditable(true);
 				height.setEditable(false);
@@ -76,9 +76,9 @@ public class ChooseShape extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				side.setText("bok+Enter");
-				height.setText("wysokosc+Enter");
-				radius.setText("bok+Enter");
+				radius.setText("promien");
+				side.setText("bok");
+				height.setText("wysokosc");
 				radius.setEditable(true);
 				side.setEditable(true);
 				height.setEditable(true);
@@ -159,10 +159,13 @@ public class ChooseShape extends JPanel
 				}
 				catch (Exception e)
 				{
-					if(units.radiusIsEditable==0 && units.sideIsEditable==0 && units.heightIsEditable==0) {}
-					else
-					JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
-					radiusCalculate=1;
+					if(units.radiusIsEditable==1)
+					{
+						JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
+						radiusCalculate=1;
+					}
+					else;
+					
 				}
 			}
 		}
@@ -186,9 +189,12 @@ public class ChooseShape extends JPanel
 				}
 				catch (Exception e)
 				{
-					if(units.radiusIsEditable==0 && units.sideIsEditable==0 && units.heightIsEditable==0) {}
-					JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
-					sideCalculate=1;
+					if(units.sideIsEditable==1)
+					{
+						JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
+						sideCalculate=1;
+					}
+					else;
 				}
 			}
 		}
@@ -212,9 +218,11 @@ public class ChooseShape extends JPanel
 				}
 				catch (Exception e)
 				{
-					if(units.radiusIsEditable==0 && units.sideIsEditable==0 && units.heightIsEditable==0) {}
-					JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
-					heightCalculate=1;
+					if(units.radiusIsEditable==1 && units.sideIsEditable==1 && units.heightIsEditable==1) 
+					{
+						JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
+						heightCalculate=1;
+					}
 				}
 			}
 		}
@@ -240,6 +248,7 @@ public class ChooseShape extends JPanel
 		ChooseShapePanel.add(height);
 	}
 	//funkcje
+	
 	public int Editable(int object)
 	{
 		int a=0;

@@ -6,13 +6,31 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import math.Atom;
+import math.SymulationThread;
+
 public class Controls extends JPanel 
 {
 	private static final long serialVersionUID = 1L;
+	boolean startActivaction=false,stopActivaction=false,restartActivaction=false;
+	
+	SymulationThread ST = new SymulationThread(20, 20, 20);
+	ExecutorService exec = Executors.newFixedThreadPool(2);
+	Thread my = new Thread();
+	
+	void StartSymualtionThread() {
+		exec.execute(ST);
+	//tutaj trzeba poczkeaæ a¿ sie skoñczy watek obliczeñ by wypluæ Listê zawierjac¹ rozpadniete atomy do animacji
+	}
+	
 	public Controls() 
 	{
 		JPanel ControlsJPanel=new JPanel();
@@ -22,29 +40,49 @@ public class Controls extends JPanel
 		JButton stop = new JButton("STOP");
 		JButton restart = new JButton("RESTART");
 		JLabel text = new JLabel("symulacja");
+		//ControlsStatusActivaction activactionStatus=new ControlsStatusActivaction();
+		
+		
 		
 		ActionListener startListener=new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg0)
 			{
-				//System.exit(0);//poprawic
+				/*activactionStatus.*/startActivaction=true;
+				/*activactionStatus.*/stopActivaction=false;
+				/*activactionStatus.*/restartActivaction=false;
+//				Thread thread=new Thread();
+//				thread.run();
+//				ST.active=true;
+				StartSymualtionThread();
 			}
 		};
 		ActionListener stopListener=new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg1)
 			{
-				//System.exit(0);//poprawic
+				startActivaction=false;
+				stopActivaction=true;
+				restartActivaction=false;
+				
+//			ST.active=false;
+			ST.interrupt();
 			}
 		};
 		ActionListener restartListener=new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg2)
 			{
-				//System.exit(0);//poprawic
+				startActivaction=false;
+				stopActivaction=false;
+				restartActivaction=true;
+	
+				ST.active=false;
+				ST.interrupt();
+				ST.active=true;
+				StartSymualtionThread();
 			}
 		};
-		
 		start.addActionListener(startListener);
 		stop.addActionListener(stopListener);
 		restart.addActionListener(restartListener);
