@@ -1,3 +1,4 @@
+//ta klasa nie bedzie potrzebna
 package GUI;
 
 public class ControlsStatusActivaction 

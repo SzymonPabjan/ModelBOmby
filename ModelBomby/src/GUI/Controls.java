@@ -6,14 +6,35 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import math.SymulationThread;
 
 public class Controls extends JPanel 
 {
 	private static final long serialVersionUID = 1L;
-	boolean startActivaction=false,stopActivaction=false,restartActivaction=false;
+	int radius=0,side=0,height=0;
+	//boolean startActivaction=false,stopActivaction=false,restartActivaction=false;
+	//UnitsForCalculation unitsForCalculation;
+	//SymulationThread ST = new SymulationThread(20, 20, 20);//tu wczytywane sa dane do obliczen
+	//SymulationThread ST = new SymulationThread(side, side, side);//tu wczytywane sa dane do obliczen dla szescianu
+	SymulationThread ST;
+	Animation animation=new Animation();
+	ExecutorService exec = Executors.newFixedThreadPool(2);
+	Thread my = new Thread();
+	
+	void StartSymualtionThread() 
+	{
+		exec.execute(ST);
+	//tutaj trzeba poczkeaæ a¿ sie skoñczy watek obliczeñ by wypluæ Listê zawierjac¹ rozpadniete atomy do animacji
+	}
+
 	public Controls() 
 	{
 		//inicjalizacja wszystkiego
@@ -24,15 +45,30 @@ public class Controls extends JPanel
 		JButton stop = new JButton("STOP");
 		JButton restart = new JButton("RESTART");
 		JLabel text = new JLabel("symulacja");
-		Animation.defaultValue();
+		//Animation.defaultValue();
 		//listenery
 		ActionListener startListener=new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg0)
 			{
-				UnitsForAnimation.czynny=true;
-				Animation.startValue();
-				Animation.rozpocznijRuch();
+				if(radius!=0&&side==0&&height==0)
+				ST = new SymulationThread(radius, radius, radius);//tu wczytywane sa dane do obliczen dla kuli//DO POPRAWY!!!!!!!!!!!!!!!!!!!!!!!
+				if(radius==0&&side!=0&&height==0)
+				ST = new SymulationThread(side, side, side);//tu wczytywane sa dane do obliczen dla szescianu
+				if(radius!=0&&side!=0&&height!=0)
+				ST = new SymulationThread(radius, side, height);//tu wczytywane sa dane do obliczen dla prostopadloscianu
+				
+//				Thread thread=new Thread();
+//				thread.run();
+//				ST.active=true;
+				animation.defaultValue();
+				//animation.startValue();
+				//animation.rozpocznijRuch();
+				System.out.println(radius);
+				System.out.println(side);
+				System.out.println(height);
+				StartSymualtionThread();
+				JOptionPane.showMessageDialog(ControlsJPanel3, "Przetwarzanie danych, prosze nie gasic programu", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
 			}
 		};
 		ActionListener stopListener=new ActionListener()
@@ -40,16 +76,29 @@ public class Controls extends JPanel
 			public void actionPerformed(ActionEvent arg1)
 			{
 				UnitsForAnimation.czynny=false;
+				//Animation.startValue();
+				//animation.stopValue();
+				//Animation.interrupt();
+				//Animation.stop();
+				ST.active=false;
+				ST.interrupt();
+				
 			}
 		};
 		ActionListener restartListener=new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg2)
 			{
-				Animation.defaultValue();
-				Animation.startValue();
+				animation.defaultValue();
 				UnitsForAnimation.czynny=true;
-				Animation.rozpocznijRuch();
+				animation.startValue();
+				animation.rozpocznijRuch();
+				
+				ST.active=false;
+				ST.interrupt();
+				ST.active=true;
+				StartSymualtionThread();
+				
 			}
 		};
 		//dodanie listenerow do guziczkow

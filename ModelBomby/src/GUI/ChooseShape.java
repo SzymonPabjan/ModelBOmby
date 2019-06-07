@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 public class ChooseShape extends JPanel 
 {
 	private static final long serialVersionUID = 1L;
-	public ChooseShape(GiveSize giveSize) 
+	public ChooseShape(GiveSize giveSize, Controls controls) 
 	{
 		//inicjalizacja obiektow
 		//GiveSize size = new GiveSize();
@@ -37,7 +37,8 @@ public class ChooseShape extends JPanel
 		JTextField radius = new JTextField("promien");
 		JTextField side= new JTextField("bok");
 		JTextField height = new JTextField("wysokosc");
-		UnitsForGUI units=new UnitsForGUI();
+		UnitsForGUI unitsForGUI=new UnitsForGUI();
+		UnitsForCalculation unitsForCalculation=new UnitsForCalculation();
 		EditUnits editUnits=new EditUnits();
 		IsDouble isDouble=new IsDouble();
 		radius.setEditable(false);
@@ -55,7 +56,10 @@ public class ChooseShape extends JPanel
 				radius.setEditable(true);
 				side.setEditable(false);
 				height.setEditable(false);
-				editUnits.EditableUnits(units,1);
+				editUnits.EditableUnits(unitsForGUI,1);
+				controls.radius=0;
+				controls.side=0;
+				controls.height=0;
 			}
 		}
 		class CubeListener implements ActionListener
@@ -69,7 +73,10 @@ public class ChooseShape extends JPanel
 				radius.setEditable(false);
 				side.setEditable(true);
 				height.setEditable(false);
-				editUnits.EditableUnits(units,2);
+				editUnits.EditableUnits(unitsForGUI,2);
+				controls.radius=0;
+				controls.side=0;
+				controls.height=0;
 			}
 		}
 		class CuboidListener implements ActionListener
@@ -83,7 +90,10 @@ public class ChooseShape extends JPanel
 				radius.setEditable(true);
 				side.setEditable(true);
 				height.setEditable(true);
-				editUnits.EditableUnits(units,3);
+				editUnits.EditableUnits(unitsForGUI,3);
+				controls.radius=0;
+				controls.side=0;
+				controls.height=0;
 			}
 		}
 		//listenery do czyszczenia okienek
@@ -92,7 +102,7 @@ public class ChooseShape extends JPanel
 			@Override
 			public void mouseClicked(MouseEvent arg0) 
 			{
-				if(Editable(units.getRadiusIsEditable())==1)
+				if(Editable(unitsForGUI.getRadiusIsEditable())==1)
 				radius.setText("");	
 			}
 			@Override
@@ -109,7 +119,7 @@ public class ChooseShape extends JPanel
 			@Override
 			public void mouseClicked(MouseEvent arg0) 
 			{
-				if(Editable(units.getSideIsEditable())==1)
+				if(Editable(unitsForGUI.getSideIsEditable())==1)
 				side.setText("");	
 			}
 			@Override
@@ -126,7 +136,7 @@ public class ChooseShape extends JPanel
 			@Override
 			public void mouseClicked(MouseEvent arg0) 
 			{
-				if(Editable(units.getHeightIsEditable())==1)
+				if(Editable(unitsForGUI.getHeightIsEditable())==1)
 				height.setText("");	
 			}
 			@Override
@@ -143,7 +153,10 @@ public class ChooseShape extends JPanel
 		{
 			String radiusValue;
 			@Override
-			public void focusGained(FocusEvent arg0) {}
+			public void focusGained(FocusEvent arg0) 
+			{
+				//controls.radius=0;
+			}
 			@Override
 			public void focusLost(FocusEvent arg0) 
 			{
@@ -155,15 +168,16 @@ public class ChooseShape extends JPanel
 					else
 					{
 						radiusCalculate= Integer.parseInt(radiusValue);
-						units.setRadiusValue(radiusCalculate);
-						int giveSizeText=units.getRadiusValue()*units.getRadiusValue()*units.getRadiusValue()*4;
-						if(units.getRadiusIsEditable()==1&&units.getHeightIsEditable()==0&&units.getSideIsEditable()==0)
+						unitsForGUI.setRadiusValue(radiusCalculate);
+						controls.radius=radiusCalculate;
+						int giveSizeText=unitsForGUI.getRadiusValue()*unitsForGUI.getRadiusValue()*unitsForGUI.getRadiusValue()*4;
+						if(unitsForGUI.getRadiusIsEditable()==1&&unitsForGUI.getHeightIsEditable()==0&&unitsForGUI.getSideIsEditable()==0)
 						giveSize.size.setText(Integer.toString(giveSizeText));
 					}
 				}
 				catch (Exception e)
 				{
-					if(units.getRadiusIsEditable()==1)
+					if(unitsForGUI.getRadiusIsEditable()==1)
 					{
 						JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
 						radiusCalculate=1;
@@ -177,7 +191,10 @@ public class ChooseShape extends JPanel
 		{
 			String sideValue;
 			@Override
-			public void focusGained(FocusEvent arg0) {}
+			public void focusGained(FocusEvent arg0) 
+			{
+				//controls.side=0;
+			}
 			@Override
 			public void focusLost(FocusEvent arg0) 
 			{
@@ -189,15 +206,16 @@ public class ChooseShape extends JPanel
 					else
 					{
 						sideCalculate= Integer.parseInt(sideValue);
-						units.setSideValue(sideCalculate);
-						int giveSizeText=units.getSideValue()*units.getSideValue()*units.getSideValue();
-						if(units.getRadiusIsEditable()==0&&units.getHeightIsEditable()==0&&units.getSideIsEditable()==1)
+						unitsForGUI.setSideValue(sideCalculate);
+						controls.side=sideCalculate;
+						int giveSizeText=unitsForGUI.getSideValue()*unitsForGUI.getSideValue()*unitsForGUI.getSideValue();
+						if(unitsForGUI.getRadiusIsEditable()==0&&unitsForGUI.getHeightIsEditable()==0&&unitsForGUI.getSideIsEditable()==1)
 						giveSize.size.setText(Integer.toString(giveSizeText));
 					}
 				}
 				catch (Exception e)
 				{
-					if(units.getSideIsEditable()==1)
+					if(unitsForGUI.getSideIsEditable()==1)
 					{
 						JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
 						sideCalculate=1;
@@ -210,7 +228,10 @@ public class ChooseShape extends JPanel
 		{
 			String heightValue;
 			@Override
-			public void focusGained(FocusEvent arg0) {}
+			public void focusGained(FocusEvent arg0) 
+			{
+				//controls.height=0;
+			}
 			@Override
 			public void focusLost(FocusEvent arg0) 
 			{
@@ -222,15 +243,16 @@ public class ChooseShape extends JPanel
 					else
 					{
 						heightCalculate=Integer.parseInt(heightValue);
-						units.setHeightValue(heightCalculate);
-						int giveSizeText=units.getHeightValue()*units.getSideValue()*units.getRadiusValue();
-						if(units.getRadiusIsEditable()==1&&units.getHeightIsEditable()==1&&units.getSideIsEditable()==1)
+						unitsForGUI.setHeightValue(heightCalculate);
+						controls.height=heightCalculate;
+						int giveSizeText=unitsForGUI.getHeightValue()*unitsForGUI.getSideValue()*unitsForGUI.getRadiusValue();
+						if(unitsForGUI.getRadiusIsEditable()==1&&unitsForGUI.getHeightIsEditable()==1&&unitsForGUI.getSideIsEditable()==1)
 						giveSize.size.setText(Integer.toString(giveSizeText));					
 						}
 				}
 				catch (Exception e)
 				{
-					if(units.getRadiusIsEditable()==1 && units.getSideIsEditable()==1 && units.getHeightIsEditable()==1) 
+					if(unitsForGUI.getRadiusIsEditable()==1 && unitsForGUI.getSideIsEditable()==1 && unitsForGUI.getHeightIsEditable()==1) 
 					{
 						JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
 						heightCalculate=1;

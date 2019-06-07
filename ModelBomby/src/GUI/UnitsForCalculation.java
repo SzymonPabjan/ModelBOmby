@@ -3,6 +3,7 @@ package GUI;
 public class UnitsForCalculation 
 {
 	private int radiusValue=1, sideValue=1, heightValue=1;
+	//static int radiusValue=1, sideValue=1, heightValue=1;
 	
 	public int getRadiusValue() 
 	{

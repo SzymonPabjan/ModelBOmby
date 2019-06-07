@@ -26,7 +26,7 @@ public class MainFrame extends JFrame
 		JPanel screen = new Paint();
 		JPanel menu = new JPanel();
 		GiveSize size = new GiveSize();
-		ChooseShape shape = new ChooseShape(size);
+		ChooseShape shape = new ChooseShape(size,controls);
 		GiveMass masa = new GiveMass();
 		ChooseSpeed speed = new ChooseSpeed();
 		
