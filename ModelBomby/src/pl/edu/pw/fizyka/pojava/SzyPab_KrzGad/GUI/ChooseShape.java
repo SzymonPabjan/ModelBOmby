@@ -1,6 +1,5 @@
 //klasa definiujaca GUI potrzebne do opcji zwiazanych z ksztaltem probki.
-//TO DO: double jako dane.
-package GUI;
+package pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.GUI;
 
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
@@ -10,7 +9,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -26,7 +24,6 @@ public class ChooseShape extends JPanel
 	public ChooseShape(GiveSize giveSize, Controls controls) 
 	{
 		//inicjalizacja obiektow
-		//GiveSize size = new GiveSize();
 		JPanel ChooseShapePanel=new JPanel(new GridLayout(7,1));
 		JFrame frame=new JFrame();
 		JMenuBar shapes = new JMenuBar();
@@ -56,6 +53,9 @@ public class ChooseShape extends JPanel
 				radius.setEditable(true);
 				side.setEditable(false);
 				height.setEditable(false);
+				unitsForCalculation.radiusIsEditable=1;
+				unitsForCalculation.sideIsEditable=0;
+				unitsForCalculation.heightIsEditable=0;
 				editUnits.EditableUnits(unitsForGUI,1);
 				controls.radius=0;
 				controls.side=0;
@@ -73,6 +73,9 @@ public class ChooseShape extends JPanel
 				radius.setEditable(false);
 				side.setEditable(true);
 				height.setEditable(false);
+				unitsForCalculation.radiusIsEditable=0;
+				unitsForCalculation.sideIsEditable=1;
+				unitsForCalculation.heightIsEditable=0;
 				editUnits.EditableUnits(unitsForGUI,2);
 				controls.radius=0;
 				controls.side=0;
@@ -90,6 +93,9 @@ public class ChooseShape extends JPanel
 				radius.setEditable(true);
 				side.setEditable(true);
 				height.setEditable(true);
+				unitsForCalculation.radiusIsEditable=1;
+				unitsForCalculation.sideIsEditable=1;
+				unitsForCalculation.heightIsEditable=1;
 				editUnits.EditableUnits(unitsForGUI,3);
 				controls.radius=0;
 				controls.side=0;
@@ -154,9 +160,7 @@ public class ChooseShape extends JPanel
 			String radiusValue;
 			@Override
 			public void focusGained(FocusEvent arg0) 
-			{
-				//controls.radius=0;
-			}
+			{}
 			@Override
 			public void focusLost(FocusEvent arg0) 
 			{
@@ -168,11 +172,32 @@ public class ChooseShape extends JPanel
 					else
 					{
 						radiusCalculate= Integer.parseInt(radiusValue);
-						unitsForGUI.setRadiusValue(radiusCalculate);
-						controls.radius=radiusCalculate;
-						int giveSizeText=unitsForGUI.getRadiusValue()*unitsForGUI.getRadiusValue()*unitsForGUI.getRadiusValue()*4;
-						if(unitsForGUI.getRadiusIsEditable()==1&&unitsForGUI.getHeightIsEditable()==0&&unitsForGUI.getSideIsEditable()==0)
-						giveSize.size.setText(Integer.toString(giveSizeText));
+						if(radiusCalculate>20)
+						{
+							radiusCalculate=20;
+							radius.setText(Integer.toString(radiusCalculate));
+							if(unitsForGUI.getRadiusIsEditable()==1&&unitsForGUI.getHeightIsEditable()==0&&unitsForGUI.getSideIsEditable()==0)
+							giveSize.size.setText(Integer.toString(32000));
+							unitsForGUI.setRadiusValue(radiusCalculate);
+							controls.radius=radiusCalculate;
+						}
+						else if(radiusCalculate<12)
+						{
+							radiusCalculate=12;
+							radius.setText(Integer.toString(radiusCalculate));
+							if(unitsForGUI.getRadiusIsEditable()==1&&unitsForGUI.getHeightIsEditable()==0&&unitsForGUI.getSideIsEditable()==0)
+							giveSize.size.setText(Integer.toString(6912));
+							unitsForGUI.setRadiusValue(radiusCalculate);
+							controls.radius=radiusCalculate;
+						}
+						else
+						{
+							unitsForGUI.setRadiusValue(radiusCalculate);
+							controls.radius=radiusCalculate;
+							int giveSizeText=unitsForGUI.getRadiusValue()*unitsForGUI.getRadiusValue()*unitsForGUI.getRadiusValue()*4;
+							if(unitsForGUI.getRadiusIsEditable()==1&&unitsForGUI.getHeightIsEditable()==0&&unitsForGUI.getSideIsEditable()==0)
+							giveSize.size.setText(Integer.toString(giveSizeText));
+						}
 					}
 				}
 				catch (Exception e)
@@ -192,9 +217,7 @@ public class ChooseShape extends JPanel
 			String sideValue;
 			@Override
 			public void focusGained(FocusEvent arg0) 
-			{
-				//controls.side=0;
-			}
+			{}
 			@Override
 			public void focusLost(FocusEvent arg0) 
 			{
@@ -206,11 +229,32 @@ public class ChooseShape extends JPanel
 					else
 					{
 						sideCalculate= Integer.parseInt(sideValue);
-						unitsForGUI.setSideValue(sideCalculate);
-						controls.side=sideCalculate;
-						int giveSizeText=unitsForGUI.getSideValue()*unitsForGUI.getSideValue()*unitsForGUI.getSideValue();
-						if(unitsForGUI.getRadiusIsEditable()==0&&unitsForGUI.getHeightIsEditable()==0&&unitsForGUI.getSideIsEditable()==1)
-						giveSize.size.setText(Integer.toString(giveSizeText));
+						if(sideCalculate>40)
+						{
+							sideCalculate=40;
+							side.setText(Integer.toString(sideCalculate));
+							if(unitsForGUI.getRadiusIsEditable()==0&&unitsForGUI.getHeightIsEditable()==0&&unitsForGUI.getSideIsEditable()==1)
+							giveSize.size.setText(Integer.toString(64000));
+							unitsForGUI.setSideValue(sideCalculate);
+							controls.side=sideCalculate;
+						}
+						else if(sideCalculate<12)
+						{
+							sideCalculate=12;
+							side.setText(Integer.toString(sideCalculate));
+							if(unitsForGUI.getRadiusIsEditable()==0&&unitsForGUI.getHeightIsEditable()==0&&unitsForGUI.getSideIsEditable()==1)
+							giveSize.size.setText(Integer.toString(1728));
+							unitsForGUI.setSideValue(sideCalculate);
+							controls.side=sideCalculate;
+						}
+						else
+						{
+							unitsForGUI.setSideValue(sideCalculate);
+							controls.side=sideCalculate;
+							int giveSizeText=unitsForGUI.getSideValue()*unitsForGUI.getSideValue()*unitsForGUI.getSideValue();
+							if(unitsForGUI.getRadiusIsEditable()==0&&unitsForGUI.getHeightIsEditable()==0&&unitsForGUI.getSideIsEditable()==1)
+							giveSize.size.setText(Integer.toString(giveSizeText));
+						}
 					}
 				}
 				catch (Exception e)
@@ -229,9 +273,7 @@ public class ChooseShape extends JPanel
 			String heightValue;
 			@Override
 			public void focusGained(FocusEvent arg0) 
-			{
-				//controls.height=0;
-			}
+			{}
 			@Override
 			public void focusLost(FocusEvent arg0) 
 			{
@@ -243,12 +285,33 @@ public class ChooseShape extends JPanel
 					else
 					{
 						heightCalculate=Integer.parseInt(heightValue);
-						unitsForGUI.setHeightValue(heightCalculate);
-						controls.height=heightCalculate;
-						int giveSizeText=unitsForGUI.getHeightValue()*unitsForGUI.getSideValue()*unitsForGUI.getRadiusValue();
-						if(unitsForGUI.getRadiusIsEditable()==1&&unitsForGUI.getHeightIsEditable()==1&&unitsForGUI.getSideIsEditable()==1)
-						giveSize.size.setText(Integer.toString(giveSizeText));					
+						if(heightCalculate>40)
+						{
+							heightCalculate=40;
+							height.setText(Integer.toString(heightCalculate));
+							if(unitsForGUI.getRadiusIsEditable()==1&&unitsForGUI.getHeightIsEditable()==1&&unitsForGUI.getSideIsEditable()==1)
+							giveSize.size.setText(Integer.toString(unitsForGUI.getHeightValue()*unitsForGUI.getSideValue()*unitsForGUI.getRadiusValue()));
+							unitsForGUI.setHeightValue(heightCalculate);
+							controls.height=heightCalculate;
 						}
+						else if(heightCalculate<12)
+						{
+							heightCalculate=12;
+							height.setText(Integer.toString(heightCalculate));
+							if(unitsForGUI.getRadiusIsEditable()==1&&unitsForGUI.getHeightIsEditable()==1&&unitsForGUI.getSideIsEditable()==1)
+							giveSize.size.setText(Integer.toString(unitsForGUI.getHeightValue()*unitsForGUI.getSideValue()*unitsForGUI.getRadiusValue()));
+							unitsForGUI.setHeightValue(heightCalculate);
+							controls.height=heightCalculate;
+						}
+						else
+						{
+							unitsForGUI.setHeightValue(heightCalculate);
+							controls.height=heightCalculate;
+							int giveSizeText=unitsForGUI.getHeightValue()*unitsForGUI.getSideValue()*unitsForGUI.getRadiusValue();
+							if(unitsForGUI.getRadiusIsEditable()==1&&unitsForGUI.getHeightIsEditable()==1&&unitsForGUI.getSideIsEditable()==1)
+							giveSize.size.setText(Integer.toString(giveSizeText));		
+						}
+					}
 				}
 				catch (Exception e)
 				{

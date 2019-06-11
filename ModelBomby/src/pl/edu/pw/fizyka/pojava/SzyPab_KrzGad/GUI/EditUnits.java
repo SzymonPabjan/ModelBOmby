@@ -1,6 +1,5 @@
 //Klasa pomagajaca przy czyszczeniu jTextField-ow. Zmienia wartosci odpowiednich parametrow przy wyborze ksztaltu.
-//TO DO:
-package GUI;
+package pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.GUI;
 
 public class EditUnits 
 {

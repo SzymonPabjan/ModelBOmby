@@ -1,6 +1,5 @@
 //klasa do inicjalizacji i wyswietlania wszystkiego.
-//TO DO:
-package GUI;
+package pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,8 +9,6 @@ import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
-import math.Methods;
 
 public class MainFrame extends JFrame 
 {
@@ -27,7 +24,7 @@ public class MainFrame extends JFrame
 		JPanel menu = new JPanel();
 		GiveSize size = new GiveSize();
 		ChooseShape shape = new ChooseShape(size,controls);
-		GiveMass masa = new GiveMass();
+		GiveMass masa = new GiveMass(size,controls);
 		ChooseSpeed speed = new ChooseSpeed();
 		
 		
@@ -64,7 +61,7 @@ public class MainFrame extends JFrame
 					public void run() 
 					{
 						MainFrame MF = new MainFrame();
-						MF.setTitle("Model bomby atomowej-wersja pre-alpha");
+						MF.setTitle("Model bomby atomowej-wersja beta");
 						MF.setSize(1080, 720); 
 						MF.setVisible(true);
 					}

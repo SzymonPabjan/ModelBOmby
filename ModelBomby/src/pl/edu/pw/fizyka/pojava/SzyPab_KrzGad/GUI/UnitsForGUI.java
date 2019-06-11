@@ -1,6 +1,5 @@
 //Klasa pomagajaca przy czyszczeniu jTextField-ow. Przechowoje zmienne "przypisane" do jTextField-ow (0=false, 1=true).
-//TO DO: mozna przerobic *IsEditable na booleany
-package GUI;
+package pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.GUI;
 
 public class UnitsForGUI
 {

@@ -1,6 +1,5 @@
 //klasa tworzaca GUI potrzebne do okreslenia masy probki
-//TO DO:
-package GUI;
+package pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.GUI;
 
 import java.awt.LayoutManager;
 import java.awt.event.FocusEvent;
@@ -17,13 +16,15 @@ import javax.swing.JTextField;
 public class GiveMass extends JPanel
 {
 	private static final long serialVersionUID = 1L;
-	public GiveMass() 
+	int avogadro=600;
+	public GiveMass(GiveSize giveSize, Controls controls) 
 	{
 		JFrame frame=new JFrame();
 		JLabel title = new JLabel("Podaj masê:");
 		JTextField mass = new JTextField(10);
-		JLabel unit = new JLabel("pg");
+		JLabel unit = new JLabel("zg");//zg(zeptogram)=10^-21g
 		IsDouble isDouble=new IsDouble();
+		UnitsForGUI unitsForGUI=new UnitsForGUI();
 		this.add(title);
 		this.add(mass);
 		this.add(unit);
@@ -51,20 +52,33 @@ public class GiveMass extends JPanel
 			@Override
 			public void focusLost(FocusEvent arg0) 
 			{
-				int massCalculate;
+				int massGiveByUser;
 				massValue=mass.getText();	
 				try
 				{
 					if (isDouble.plusDouble(massValue,isDouble.isDouble(massValue))) throw new Exception();
 					else
 					{
-						massCalculate= Integer.parseInt(massValue);
+						massGiveByUser= Integer.parseInt(massValue);
+						if(massGiveByUser/235*avogadro>64000)
+						{
+							massGiveByUser=64000;
+							mass.setText(Integer.toString((int)64000*235/avogadro));
+							giveSize.size.setText(Integer.toString(massGiveByUser));
+						}
+						else
+						{
+							double massCalculate=massGiveByUser/235*avogadro;
+							unitsForGUI.setSideValue((int)Math.cbrt(massCalculate));
+							controls.side=(int)Math.cbrt(massCalculate);
+							giveSize.size.setText(Integer.toString((int)massCalculate));
+						}
 					}
 				}
 				catch (Exception e)
 				{
 					JOptionPane.showMessageDialog(frame, "Niezgodny typ danych", "Warning", JOptionPane.WARNING_MESSAGE);
-					massCalculate=1;
+					massGiveByUser=1;
 				}
 			}
 		}

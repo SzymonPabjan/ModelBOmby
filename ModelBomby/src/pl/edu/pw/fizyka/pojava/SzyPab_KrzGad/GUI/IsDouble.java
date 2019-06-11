@@ -1,6 +1,5 @@
-//Klasa do sprawdzania czy string jest dodatnim doublem; narazie dziala dla dodatnich intow.
-//TO DO: sprawic aby dzialalo dla doubli (moze bedzie to potrzebne; przemyslec).
-package GUI;
+//Klasa do sprawdzania czy string jest dodatnim intem.
+package pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.GUI;
 
 public class IsDouble 
 {
@@ -16,7 +15,7 @@ public class IsDouble
 		{
 			try
 			{
-				double a=Double.parseDouble(string);
+				double stringToDouble=Double.parseDouble(string);
 			}
 			catch(Exception e)
 			{
@@ -31,8 +30,8 @@ public class IsDouble
 		{
 			boolean result;
 			String string=object.toString();
-			double a=Double.parseDouble(string);
-			if(a>0)
+			double stringToDouble=Double.parseDouble(string);
+			if(stringToDouble>0)
 				result=false;
 			else
 				result=true;

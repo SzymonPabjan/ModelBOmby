@@ -1,14 +1,14 @@
-package math;
+// klasa zawieraj¹ca wszystkie metody u¿ywane w "czêsæi matematycznej" programu oraz listy klas Neutron i Atom
+package pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.math;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import GUI.UnitsForAnimation;
-import math.Atom;
-import math.Neutron;
+import pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.GUI.UnitsForAnimation;
+import pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.math.Atom;
+import pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.math.Neutron;
 
-
-public class Methods {// klasa zawieraj¹ca wszystkie metody u¿ywane w "czêsæi matematycznej" programu oraz listy klas Neutron i Atom
+public class Methods {
 
 	int xPosition = 0;
 	int yPosition = 0;
@@ -22,22 +22,36 @@ public class Methods {// klasa zawieraj¹ca wszystkie metody u¿ywane w "czêsæi ma
 	
 	public ArrayList<Atom> atoms = new ArrayList<Atom>(); //lista obiektów klasy Atom
 	public ArrayList<Neutron> neutrons = new ArrayList<Neutron>(); //lista obiektów klasy Neutron
-	public ArrayList<Atom> decayedAtoms = new ArrayList<Atom>();//lista rozpadnietych atomów przkazywana do w¹tku animacji
+	public static ArrayList<Atom> decayedAtoms;// = new ArrayList<Atom>();//lista rozpadnietych atomów przkazywana do w¹tku animacji
 	UnitsForAnimation units=new UnitsForAnimation();
-	int iterator=1;
 	
 	//tworzenie "atomów"
 	public void AtomListAdd() {// funkcja zape³niajaca listê obiekatmi klasy Atom
 		for(int ii =0; ii<xPosition; ii++) {
 			for(int jj =0; jj<yPosition; jj++) {
 				for(int kk =0; kk<zPosition; kk++) {
-					Atom atom = new Atom(ii,jj,kk,false,0);	
+					Atom atom = new Atom(ii,jj,kk,false);	
 					atoms.add(atom);
-					//units.decayedAtoms.add(atom);
 				}
 			}
 		}
-		
+	}
+	public void BallAtomListAdd() 
+	{// funkcja zape³niajaca listê obiekatmi klasy Atom dla kuli
+		for(int ii =0; ii<40; ii++) 
+		{
+			for(int jj =0; jj<40; jj++) 
+			{
+				for(int kk =0; kk<40; kk++) 
+				{
+					if(((ii-360)^2+(jj-360)^2+(kk-360)^2)<(xPosition^2))
+					{
+						Atom atom = new Atom(ii,jj,kk,false);	
+						atoms.add(atom);
+					}
+				}
+			}
+		}
 	}
 	//koniec tworzenia atomów
 	
@@ -50,26 +64,21 @@ public class Methods {// klasa zawieraj¹ca wszystkie metody u¿ywane w "czêsæi ma
 		for(int ii =0; ii<15; ii++) {
 				c = random.nextInt((xPosition-1)+1)+1;
 				coo[ii]=c;	
-				
 		}
 		return coo;	
 	}
 	//koniec losowania 
-	
-	
+		
 		void NeutronCreation(int a) {// Neutron Creation funkcja tworz¹ca Neutrony na podstawie koordynatów samoistnie rozpadajaæych siê jader atomów
 		int[] co = RadnomlyDecayedAtoms();
 		for(int ii =0; ii<atoms.size(); ii++) {
-			//System.out.println(i);
-			if(atoms.get(ii).getxPosition() == co[0 +a ] & atoms.get(ii).yPosition == co[1 +a] & atoms.get(ii).zPosition == co[2+a] &
-					atoms.get(ii).decay == false) {
-				atoms.get(ii).decay = true;
-				//units.decayedatoms.add(atoms.get(ii));
+			if(atoms.get(ii).getxPosition() == co[0 +a ] & atoms.get(ii).getyPosition() == co[1 +a] & atoms.get(ii).getzPosition() == co[2+a] &
+					atoms.get(ii).isDecay() == false) {
+				atoms.get(ii).setDecay(true);
 				atoms.remove(ii);
 				neutrons.add(new Neutron(co[0], co[1],co[2], false));
 				neutrons.add(new Neutron(co[0], co[1],co[2], false));
 				neutrons.add(new Neutron(co[0], co[1],co[2], false));
-				
 			}
 		}
 	}
@@ -131,24 +140,22 @@ public class Methods {// klasa zawieraj¹ca wszystkie metody u¿ywane w "czêsæi ma
 			 if(neutrons.get(ii).xPosition < 0 | neutrons.get(ii).xPosition>xPosition |neutrons.get(ii).yPosition < 0 | neutrons.get(ii).yPosition>yPosition | 
 						neutrons.get(ii).zPosition < 0 | neutrons.get(ii).zPosition>zPosition) {
 					neutrons.get(ii).outside = true;	
-				}
-			 
+				} 
 			 }
-		
 		}
 	
 	public int AtomsDecayedByNeutrons() {//Atoms Neutron Decay funkcja "rozpadaj¹ca" ja¹dra atomów trafione przez neutrony, dodatkowo zlicza liczbê rozpadów
+		decayedAtoms=new ArrayList<Atom>();
 		int suma = 0;
 		for(int ii =0; ii<neutrons.size(); ii++) {
 			 Random rand = new Random();
 			 int random = rand.nextInt((100-1)+1)+1; // losowy int którego wartoœæ decyduje o tym czy jadro uelgnie rozpadowi po zderzeniu z j¹drem 
 			if(neutrons.get(ii).outside == false && random<=25) {
 				for(int jj =0; jj<atoms.size(); jj++) {// ta czêœæ metody znajduje odpowiednie j¹dra i usuwa je z pamiêci
-					if(atoms.get(jj).decay == false && atoms.get(jj).getxPosition() == neutrons.get(ii).xPosition && atoms.get(jj).yPosition == neutrons.get(ii).yPosition && 
-							atoms.get(jj).zPosition == neutrons.get(ii).zPosition) {
-						atoms.get(jj).decay = true;
-						atoms.get(jj).iterator = iterator;
-						decayedAtoms.add(atoms.get(jj));//??????????????
+					if(atoms.get(jj).isDecay() == false && atoms.get(jj).getxPosition() == neutrons.get(ii).xPosition && atoms.get(jj).getyPosition() == neutrons.get(ii).yPosition && 
+							atoms.get(jj).getzPosition() == neutrons.get(ii).zPosition) {
+						atoms.get(jj).setDecay(true);
+						decayedAtoms.add(atoms.get(jj));
 						units.decayedAtoms.add(atoms.get(jj));
 						atoms.remove(jj);
 						suma++;
@@ -156,8 +163,7 @@ public class Methods {// klasa zawieraj¹ca wszystkie metody u¿ywane w "czêsæi ma
 				}
 			}
 		}
-		iterator++;
+		//iterator++;
 		return suma;
 	}
-	
 }

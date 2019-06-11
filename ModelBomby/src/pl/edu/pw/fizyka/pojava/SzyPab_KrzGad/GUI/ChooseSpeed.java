@@ -1,6 +1,5 @@
 //klasa tworzaca GUI dla szybkosci animacji
-//TO DO:
-package GUI;
+package pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -36,7 +35,13 @@ public class ChooseSpeed extends JPanel
 			{
 				String value = String.format("%d", time.getValue());
 				showTime.setText(value);
-				int value1 = time.getValue();
+				int realValue = time.getValue();
+				Animation.time=realValue/100;
+				if(realValue==0)
+				{
+					realValue=1;
+					showTime.setText(Integer.toString(realValue));
+				}
 			}	
 		}
 		

@@ -1,6 +1,7 @@
-package math;
+// klasa Neutron przechowuje po³o¿enie neutronu oraz jego stan (czy jest rozpadniety czy nie)
+package pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.math;
 
-public class Neutron {// klasa Neutron przechowuje po³o¿enie neutronu oraz jego stan (czy jest rozpadniety czy nie)
+public class Neutron {
 
 		int xPosition = 0;
 		int yPosition = 0;
@@ -12,5 +13,4 @@ public class Neutron {// klasa Neutron przechowuje po³o¿enie neutronu oraz jego 
 			zPosition = Z;
 			outside = Outside;
 		}
-		
 }

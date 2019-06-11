@@ -1,6 +1,5 @@
 //klasa obslugujaca element size
-//TO DO:
-package GUI;
+package pl.edu.pw.fizyka.pojava.SzyPab_KrzGad.GUI;
 
 import java.awt.LayoutManager;
 
